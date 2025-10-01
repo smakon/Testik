@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
     }
 
     return MaterialApp(
-      home: _isLoggedIn ? Home() : Signup(),
+      home: Signup(),
       routes: {
         '/signup': (context) => Signup(),
         '/home': (context) => Home(),

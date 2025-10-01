@@ -10,4 +10,4 @@ const Color backgroundColor = Color(0xFFFFFFFF);
 
 const Color textColor = Color(0xFF000000);
 
-const Color primaryColor75Transparent = Color(0xBF4CAF50);
+const Color primaryColor50Transparent = Color(0x804CAF50);

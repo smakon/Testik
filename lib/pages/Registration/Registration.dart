@@ -6,6 +6,19 @@ class Registration extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(child: Text('Reg')),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, '/signup');
+            },
+            child: Text('Signup'),
+          ),
+        ],
+      ),
+    );
   }
 }

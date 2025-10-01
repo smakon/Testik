@@ -6,9 +6,12 @@ import 'package:testik/Database/methods.dart';
 import 'package:testik/design/colors.dart';
 import 'package:testik/design/dimensions.dart';
 import 'package:testik/design/images.dart';
+import 'package:testik/design/ui/glassWidget.dart';
+import 'package:testik/design/ui/uiMethods.dart';
 import 'package:testik/pages/regSig/functions.dart';
 
-var input = "";
+var inputLogin = "";
+var inputPassword = "";
 
 class SignupBody extends StatelessWidget {
   const SignupBody({super.key});
@@ -33,72 +36,39 @@ class SignupBody extends StatelessWidget {
   }
 
   Widget _upCurve() {
-    return Positioned(
-      top: -50,
-      left: -10,
-      width: 510,
-      height: 271,
-      child: upCurve, // например, изображение или CustomPaint
-    );
+    return upCurve.positioned(left: -10, top: -70, width: 510, height: 300);
   }
 
   Widget _downCurve() {
-    return Positioned(
-      bottom: 100,
-      left: -37,
-      width: 510,
-      height: 271,
-      child: downCurve,
-    );
+    return downCurve.positioned(left: -37, bottom: 70, width: 510, height: 271);
   }
 
   Widget _circle() {
-    return Positioned(
-      top: 190,
-      left: 30,
-      child: ImageFiltered(
-        imageFilter: ImageFilter.blur(sigmaX: 38, sigmaY: 38),
-        child: Container(
-          width: 165,
-          height: 165,
-          decoration: BoxDecoration(
-            color: primaryColor75Transparent,
-            borderRadius: BorderRadius.all(Radius.circular(500)),
-          ),
+    return ImageFiltered(
+      imageFilter: ImageFilter.blur(sigmaX: 38, sigmaY: 38),
+      child: Container(
+        width: 165,
+        height: 165,
+        decoration: BoxDecoration(
+          color: primaryColor50Transparent,
+          borderRadius: BorderRadius.all(Radius.circular(500)),
         ),
       ),
-    );
+    ).positioned(top: 190, left: 30);
   }
 
   Widget _form(BuildContext context) {
     return Center(
       child: Transform.translate(
         offset: Offset(0, -50), // двигаем форму на 80px ВВЕРХ
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(28),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 48, sigmaY: 48),
-            child: Container(
-              width: 360,
-              height: 366,
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.03),
-                border: Border.all(color: textColor, width: 3),
-                borderRadius: BorderRadius.circular(28),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.white.withOpacity(0.15),
-                    blurRadius: 4,
-                    offset: Offset(0, 4),
-                    spreadRadius: 0,
-                  ),
-                  BoxShadow(
-                    color: Color(0xFF747474).withOpacity(0.05),
-                    blurRadius: 1000,
-                    spreadRadius: 1000,
-                  ),
-                ],
-              ),
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: textColor, width: 3),
+            borderRadius: BorderRadius.circular(28),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(28),
+            child: GlassContainer(
               child: Column(
                 spacing: 20,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -113,7 +83,7 @@ class SignupBody extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'Введите логин и почту',
+                        'Введите логин/почту и пароль',
                         style: TextStyle(
                           fontSize: fontSize16,
                           color: accentColor,
@@ -125,19 +95,51 @@ class SignupBody extends StatelessWidget {
                     width: 316,
                     height: 54,
                     child: TextField(
-                      onChanged: (value) => {input = value},
+                      onChanged: (value) => {inputLogin = value},
                       decoration: InputDecoration(
+                        hintText: 'Логин/почта',
+                        hintStyle: TextStyle(
+                          color: primaryColor,
+                          fontSize: fontSize16,
+                        ),
                         filled: true,
                         fillColor: backgroundColor,
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                            color: primaryColor75Transparent,
-                            width: 3,
-                          ),
+                          borderSide: BorderSide(color: primaryColor, width: 3),
                         ),
                         enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: primaryColor50Transparent,
+                            width: 3,
+                          ),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 316,
+                    height: 54,
+                    child: TextField(
+                      onChanged: (value) => {inputPassword = value},
+                      decoration: InputDecoration(
+                        hintText: 'Пароль',
+                        hintStyle: TextStyle(
+                          color: primaryColor,
+                          fontSize: fontSize16,
+                        ),
+                        filled: true,
+                        fillColor: backgroundColor,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
                           borderSide: BorderSide(color: primaryColor, width: 3),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: primaryColor50Transparent,
+                            width: 3,
+                          ),
                           borderRadius: BorderRadius.circular(20),
                         ),
                       ),
@@ -145,7 +147,11 @@ class SignupBody extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      await checkUserAndNavigate(context, input);
+                      await checkUserAndNavigate(
+                        context,
+                        inputLogin,
+                        inputPassword,
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: primaryColor,
@@ -159,7 +165,14 @@ class SignupBody extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    child: Text('Войти'),
+                    child: Text(
+                      'Войти',
+                      style: TextStyle(
+                        fontSize: fontSize20,
+                        fontWeight: FontWeight.w700,
+                        color: backgroundColor,
+                      ),
+                    ),
                   ),
                 ],
               ),

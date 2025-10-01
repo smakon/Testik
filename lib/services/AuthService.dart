@@ -5,10 +5,11 @@ class AuthService {
   static const String _keyEmail = 'user_email';
 
   // Сохранить данные пользователя после входа/регистрации
-  Future<void> saveUser(String userId, String email) async {
+  Future<void> saveUser(String userId, String email, String login) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_keyUserId, userId);
-    await prefs.setString(_keyEmail, email);
+    await prefs.setString('user_id', userId);
+    await prefs.setString('user_email', email);
+    await prefs.setString('user_login', login);
   }
 
   // Проверить, авторизован ли пользователь
@@ -20,12 +21,14 @@ class AuthService {
   // Получить данные пользователя
   Future<Map<String, String>> getUser() async {
     final prefs = await SharedPreferences.getInstance();
-    final userId = prefs.getString(_keyUserId);
-    final email = prefs.getString(_keyEmail);
-    if (userId != null && email != null) {
-      return {'id': userId, 'email': email};
+    final userId = prefs.getString('user_id');
+    final userEmail = prefs.getString('user_email');
+    final userLogin = prefs.getString('user_login');
+
+    if (userId != null && userEmail != null) {
+      return {'id': userId, 'email': userEmail, 'login': userLogin ?? ''};
     }
-    throw Exception('Пользователь не найден');
+    throw Exception('Пользователь не авторизован');
   }
 
   // Выход из аккаунта
