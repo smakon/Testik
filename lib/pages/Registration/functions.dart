@@ -16,6 +16,14 @@ Future<void> registration(
         SnackBar(content: Text('Пользователь с таким email уже существует')),
       );
     } else {
+      var isEmailValid = isValidEmail(email, context);
+      if (!isEmailValid) {
+        return;
+      }
+      var isPasswordValid = isValidPassword(password, context);
+      if (!isPasswordValid) {
+        return;
+      }
       await insertToCollection("users", {
         "name": login,
         "password": password,
@@ -46,4 +54,31 @@ Future<void> registration(
   } catch (e) {
     print(e);
   }
+}
+
+bool isValidEmail(String email, BuildContext context) {
+  // Это регулярное выражение (regex), братан, для проверки email
+  final emailRegex = RegExp(
+    r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+  );
+
+  if (!emailRegex.hasMatch(email)) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text('Неверный email')));
+  }
+  return emailRegex.hasMatch(email);
+}
+
+bool isValidPassword(String password, BuildContext context) {
+  // Проверяем, чтобы был хотя бы 1 заглавный, 1 строчный, 1 цифра, и длина не меньше 8
+  final passwordRegex = RegExp(
+    r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$',
+  );
+  if (!passwordRegex.hasMatch(password)) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text('Ненадёжный пароль')));
+  }
+  return passwordRegex.hasMatch(password);
 }

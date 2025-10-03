@@ -18,8 +18,9 @@ Future<void> checkUserAndNavigate(
 
     // 3. Если пользователь не найден ни по email, ни по login
     if (user == null) {
-      // Переход к регистрации
-      Navigator.pushReplacementNamed(context, '/registration');
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Пользователь не найден')));
       return;
     }
 

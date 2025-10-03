@@ -76,7 +76,7 @@ class SignupBody extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        'Вход или регистрация',
+                        'Вход',
                         style: TextStyle(
                           fontSize: fontSize24,
                           color: textColor,
@@ -172,6 +172,22 @@ class SignupBody extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                         color: backgroundColor,
                       ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/registration');
+                    },
+                    child: Text(
+                      "Зарегестрироваться",
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontSize: fontSize16,
+                        fontWeight: FontWeight.w100,
+                      ),
+                    ),
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.only(top: 10),
                     ),
                   ),
                 ],
