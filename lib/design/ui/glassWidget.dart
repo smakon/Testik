@@ -20,7 +20,6 @@ class GlassContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BackdropFilter(
-
       filter: ImageFilter.blur(sigmaX: 48, sigmaY: 48),
       child: Container(
         width: width,
@@ -35,7 +34,7 @@ class GlassContainer extends StatelessWidget {
               spreadRadius: 0,
             ),
             BoxShadow(
-              color: Color(0xFF747474).withOpacity(0.05),
+              color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.05),
               blurRadius: 1000,
               spreadRadius: 1000,
             ),

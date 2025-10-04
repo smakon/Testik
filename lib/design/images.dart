@@ -13,3 +13,5 @@ final Image downRegCurve = Image.asset(
   'assets/images/down_reg_curve.png',
   scale: 1,
 );
+
+final Image profile = Image.asset('assets/images/Profile.png', scale: 1);

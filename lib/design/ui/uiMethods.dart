@@ -26,4 +26,7 @@ extension WidgetModifier on Widget {
       child: this,
     );
   }
+
+  Widget offset(double dx, double dy) =>
+      Transform.translate(offset: Offset(dx, dy), child: this);
 }

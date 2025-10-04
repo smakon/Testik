@@ -154,6 +154,7 @@ class SignupBody extends StatelessWidget {
                       );
                     },
                     style: ElevatedButton.styleFrom(
+                      elevation: elevationNone,
                       backgroundColor: primaryColor,
                       fixedSize: Size(316, 54),
                       shape: RoundedRectangleBorder(
